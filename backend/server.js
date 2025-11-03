@@ -1,0 +1,54 @@
+const express =require('express');
+const cors =require('cors');
+const dotenv=require("dotenv")
+dotenv.config()
+const userRoutes=require("./routes/userRoutes")
+const productRoutes=require("./routes/productRoutes")
+const cartRoutes=require("./routes/cartRoutes")
+const checkoutRoutes=require("./routes/checkoutRoutes")
+const orderRoutes=require("./routes/orderRoutes")
+const uploadRoutes=require("./routes/uploadRoutes")
+const adminRoutes=require("./routes/adminRoutes")
+const productAdminRoutes=require("./routes/productAdminRoutes")
+const orderAdminRoutes=require("./routes/orderAdminRoutes")
+const wishlistRoutes=require("./routes/wishlistRoutes")
+const reviewRoutes=require("./routes/reviewRoutes")
+const app=express();
+const connectDB=require('./config/db')
+
+app.use(cors({
+  origin: ['http://localhost:5174', 'http://localhost:5173'],
+  credentials: true
+}));
+app.use(express.json())
+
+const PORT=process.env.PORT||3000;
+
+connectDB()
+
+app.use("/api/users",userRoutes);
+
+app.use("/api/products",productRoutes)
+
+app.use("/api/cart",cartRoutes)
+
+app.use("/api/checkout",checkoutRoutes)
+
+app.use("/api/orders",orderRoutes)
+
+app.use("/api/upload",uploadRoutes)
+
+app.use("/api/admin/users",adminRoutes)
+
+app.use("/api/admin/products",productAdminRoutes)
+
+app.use("/api/admin/orders",orderAdminRoutes)
+
+app.use("/api/wishlist",wishlistRoutes)
+
+app.use("/api/reviews",reviewRoutes)
+app.use("/api/contact", require("./routes/contactRoutes"));
+
+app.listen(PORT,()=>{
+  console.log(`Server running on port ${PORT}`)
+})
