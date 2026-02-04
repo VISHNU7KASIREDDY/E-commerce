@@ -31,8 +31,12 @@ const About = () => {
               Every product tells a story of tradition, quality, and the authentic taste of India.
             </p>
           </div>
-          <div className="bg-neutral-200 dark:bg-neutral-800 rounded-xl h-96 flex items-center justify-center">
-            <span className="material-symbols-outlined text-neutral-400 text-[120px]">restaurant</span>
+          <div className="rounded-xl overflow-hidden h-96 shadow-lg">
+            <img 
+              src="/about-hero.jpg" 
+              alt="Our Story - SpiceRoute" 
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 
