@@ -40,7 +40,7 @@ const Cart = () => {
 
     try {
       setPlacing(true);
-      // Create order from cart items
+
       const orderData = {
         orderItems: cartItems.map(item => ({
           name: item.name,
@@ -53,15 +53,14 @@ const Cart = () => {
       };
 
       const order = await orderService.createOrder(orderData);
-      
-      // Clear cart by removing all items
+
       for (const item of cartItems) {
         await removeFromCart(item.productId, item.size, item.category);
       }
 
       alert(`Order placed successfully! Order Number: ${order.orderNumber}`);
-      fetchCart(); // Refresh cart
-      navigate('/'); // Navigate to home
+      fetchCart(); 
+      navigate('/'); 
     } catch (error) {
       console.error('Error placing order:', error);
       alert('Failed to place order. Please try again.');
@@ -84,7 +83,7 @@ const Cart = () => {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      {/* Breadcrumb & Header */}
+      {}
       <div className="mb-8">
         <nav className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-2">
           <a href="/" className="hover:text-primary">
@@ -100,7 +99,7 @@ const Cart = () => {
       </div>
 
       {cartItems.length === 0 ? (
-        // Empty Cart State
+
         <div className="text-center py-12">
           <div className="mx-auto h-24 w-24 text-neutral-400 mb-4">
             <span className="material-symbols-outlined" style={{ fontSize: '96px' }}>
@@ -122,13 +121,13 @@ const Cart = () => {
         </div>
       ) : (
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start">
-          {/* Cart Items Section */}
+          {}
           <section className="lg:col-span-8">
-            {/* Cart List */}
+            {}
             <ul className="divide-y divide-neutral-200 dark:divide-neutral-700 border-b border-neutral-200 dark:border-neutral-700 mb-8">
               {cartItems.map((item) => (
                 <li key={`${item.productId}-${item.size}`} className="flex py-6 flex-col sm:flex-row">
-                  {/* Image */}
+                  {}
                   <div className="flex-shrink-0 h-24 w-24 sm:h-32 sm:w-32 rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden bg-white">
                     <img
                       alt={item.name}
@@ -137,9 +136,9 @@ const Cart = () => {
                     />
                   </div>
 
-                  {/* Info & Controls */}
+                  {}
                   <div className="mt-4 sm:mt-0 sm:ml-6 flex-1 grid grid-cols-1 sm:grid-cols-6 gap-4 items-center">
-                    {/* Product Details */}
+                    {}
                     <div className="sm:col-span-3">
                       <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
                         {item.name}
@@ -152,14 +151,14 @@ const Cart = () => {
                       </p>
                     </div>
 
-                    {/* Price */}
+                    {}
                     <div className="hidden sm:block sm:col-span-1 text-center">
                       <p className="text-sm font-medium text-neutral-900 dark:text-white">
                         ₹{item.price}
                       </p>
                     </div>
 
-                    {/* Quantity Stepper */}
+                    {}
                     <div className="sm:col-span-1 flex items-center justify-between sm:justify-center border border-neutral-300 dark:border-neutral-600 rounded-lg px-2 py-1 w-full sm:w-auto max-w-[120px]">
                       <button
                         onClick={() => handleQuantityChange(item, item.quantity - 1)}
@@ -181,7 +180,7 @@ const Cart = () => {
                       </button>
                     </div>
 
-                    {/* Total & Delete */}
+                    {}
                     <div className="sm:col-span-1 flex sm:block items-center justify-between sm:text-right mt-2 sm:mt-0">
                       <p className="text-lg font-bold text-neutral-900 dark:text-white sm:mb-2">
                         ₹{(item.price * item.quantity).toFixed(2)}
@@ -200,7 +199,7 @@ const Cart = () => {
             </ul>
           </section>
 
-          {/* Order Summary Sidebar */}
+          {}
           <aside className="lg:col-span-4 mt-16 lg:mt-0">
             <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg border border-neutral-100 dark:border-neutral-700 p-6 sm:p-8 sticky top-28">
               <h2 className="text-lg font-bold text-neutral-900 dark:text-white mb-6">
@@ -233,7 +232,7 @@ const Cart = () => {
                 </dl>
               </div>
 
-              {/* Place Order Button */}
+              {}
               <div className="mt-8">
                 <button
                   onClick={handlePlaceOrder}
@@ -244,7 +243,7 @@ const Cart = () => {
                 </button>
               </div>
 
-              {/* Trust Signals */}
+              {}
               <div className="mt-6 flex justify-center gap-6 text-neutral-400 dark:text-neutral-500">
                 <div className="flex flex-col items-center gap-1">
                   <span className="material-symbols-outlined text-xl">verified_user</span>

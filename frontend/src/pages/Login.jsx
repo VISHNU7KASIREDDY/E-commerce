@@ -28,7 +28,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background-light dark:bg-background-dark px-4 py-12">
       <div className="max-w-md w-full bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 border border-neutral-200 dark:border-neutral-700">
-        {/* Header */}
+        {}
         <div className="text-center mb-8">
           <div className="size-12 text-primary mx-auto mb-4">
             <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -42,14 +42,14 @@ const Login = () => {
           <p className="text-neutral-600 dark:text-neutral-400">Sign in to your account</p>
         </div>
 
-        {/* Error Message */}
+        {}
         {error && (
           <div className="mb-6 p-3 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-300 rounded text-sm">
             {error}
           </div>
         )}
 
-        {/* Form */}
+        {}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
@@ -88,7 +88,7 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Footer */}
+        {}
         <div className="mt-6 text-center">
           <p className="text-neutral-600 dark:text-neutral-400 text-sm">
             Don't have an account?{' '}

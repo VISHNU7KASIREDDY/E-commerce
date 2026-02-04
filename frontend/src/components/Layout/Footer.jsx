@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="w-full bg-background-dark text-white pt-16 pb-8">
       <div className="layout-content-container max-w-[1280px] mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-12">
-          {/* Brand Section */}
+          {}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2 text-white">
               <div className="size-6 text-primary">
@@ -25,7 +25,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Shop Links */}
+          {}
           <div className="flex flex-col gap-4">
             <h4 className="font-bold text-base">Shop</h4>
             <div className="flex flex-col gap-2 text-neutral-400 text-sm">
@@ -47,7 +47,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Company Links */}
+          {}
           <div className="flex flex-col gap-4">
             <h4 className="font-bold text-base">Company</h4>
             <div className="flex flex-col gap-2 text-neutral-400 text-sm">
@@ -61,11 +61,11 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Section */}
+        {}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-neutral-500 text-xs">© 2024 SpiceRoute Foods. All rights reserved.</p>
           <div className="flex gap-4 text-neutral-400">
-            {/* Social Icons */}
+            {}
             <a href="#" className="hover:text-white transition-colors">
               <span className="sr-only">Instagram</span>
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

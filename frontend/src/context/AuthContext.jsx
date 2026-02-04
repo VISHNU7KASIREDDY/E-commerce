@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in on mount
+
     const currentUser = authService.getCurrentUser();
     if (currentUser) {
       setUser(currentUser);
@@ -29,8 +29,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const data = await authService.login(email, password);
       setUser(data.user);
-      
-      // Merge guest cart with user cart after login
+
       try {
         await cartService.mergeCart();
       } catch (error) {

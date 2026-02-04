@@ -5,9 +5,6 @@ const Product = require('../models/product');
 
 const router = express.Router();
 
-// @route   GET /api/reviews/product/:productId
-// @desc    Get all reviews for a product
-// @access  Public
 router.get('/product/:productId', async (req, res) => {
   try {
     const { productId } = req.params;
@@ -23,20 +20,15 @@ router.get('/product/:productId', async (req, res) => {
   }
 });
 
-// @route   POST /api/reviews
-// @desc    Create a new review
-// @access  Private
 router.post('/', protect, async (req, res) => {
   try {
     const { productId, rating, title, comment } = req.body;
 
-    // Check if product exists
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    // Check if user already reviewed this product
     const existingReview = await Review.findOne({
       user: req.user._id,
       product: productId,
@@ -69,9 +61,6 @@ router.post('/', protect, async (req, res) => {
   }
 });
 
-// @route   PUT /api/reviews/:id
-// @desc    Update user's own review
-// @access  Private
 router.put('/:id', protect, async (req, res) => {
   try {
     const { rating, title, comment } = req.body;
@@ -82,7 +71,6 @@ router.put('/:id', protect, async (req, res) => {
       return res.status(404).json({ message: 'Review not found' });
     }
 
-    // Check if user owns this review
     if (review.user.toString() !== req.user._id.toString()) {
       return res
         .status(403)
@@ -106,9 +94,6 @@ router.put('/:id', protect, async (req, res) => {
   }
 });
 
-// @route   DELETE /api/reviews/:id
-// @desc    Delete user's own review
-// @access  Private
 router.delete('/:id', protect, async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
@@ -117,7 +102,6 @@ router.delete('/:id', protect, async (req, res) => {
       return res.status(404).json({ message: 'Review not found' });
     }
 
-    // Check if user owns this review
     if (review.user.toString() !== req.user._id.toString()) {
       return res
         .status(403)

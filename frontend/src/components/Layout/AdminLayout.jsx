@@ -7,7 +7,7 @@ const AdminLayout = () => {
 
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
-      {/* Admin Header */}
+      {}
       <header className="bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -41,7 +41,7 @@ const AdminLayout = () => {
       </header>
 
       <div className="flex">
-        {/* Sidebar */}
+        {}
         <aside className="w-64 bg-white dark:bg-neutral-800 border-r border-neutral-200 dark:border-neutral-700 min-h-[calc(100vh-4rem)]">
           <nav className="p-4 space-y-2">
             <NavLink
@@ -111,7 +111,7 @@ const AdminLayout = () => {
           </nav>
         </aside>
 
-        {/* Main Content */}
+        {}
         <main className="flex-1 p-8">
           <Outlet />
         </main>

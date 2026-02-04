@@ -21,21 +21,18 @@ const seedData = async () => {
   try {
     await connectDB();
 
-    // Clear existing data
     await User.deleteMany({});
     await Product.deleteMany({});
     console.log('Cleared existing data');
 
-    // Create admin user
     const adminUser = await User.create({
       name: 'Vishnu',
       email: 'vishnukasireddy28@gmail.com',
-      password: '123456', // User's preferred password
+      password: '123456', 
       role: 'admin',
     });
     console.log('Admin user created:', adminUser.email);
 
-    // Create customer user
     const customerUser = await User.create({
       name: 'John Doe',
       email: 'customer@example.com',
@@ -44,7 +41,6 @@ const seedData = async () => {
     });
     console.log('Customer user created:', customerUser.email);
 
-    // Dummy products
     const products = [
       {
         name: 'Andhra Avakaya Pickle',
@@ -196,11 +192,11 @@ const seedData = async () => {
     const createdProducts = await Product.insertMany(products);
     console.log(`Created ${createdProducts.length} products`);
 
-    console.log('\n✅ Seed data created successfully!');
-    console.log('\n📧 Admin Login:');
+    console.log('\n Seed data created successfully!');
+    console.log('\n Admin Login:');
     console.log('   Email: vishnukasireddy28@gmail.com');
     console.log('   Password: 123456');
-    console.log('\n📧 Customer Login:');
+    console.log('\n Customer Login:');
     console.log('   Email: customer@example.com');
     console.log('   Password: customer123');
 

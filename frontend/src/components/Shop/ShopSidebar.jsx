@@ -4,8 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 const ShopSidebar = ({ onCategoryChange }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get('category');
-  
-  // Local filter state (not applied until button click)
+
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [isVeg, setIsVeg] = useState(false);
   const [isNonVeg, setIsNonVeg] = useState(false);
@@ -18,10 +17,9 @@ const ShopSidebar = ({ onCategoryChange }) => {
   ];
 
   const handleCategoryClick = (categoryId) => {
-    // Determine active category for toggling
+
     const newCategory = activeCategory === categoryId ? null : categoryId;
-    
-    // Update URL params
+
     const params = new URLSearchParams(searchParams);
     if (newCategory) {
       params.set('category', newCategory);
@@ -29,15 +27,13 @@ const ShopSidebar = ({ onCategoryChange }) => {
       params.delete('category');
     }
     setSearchParams(params);
-    
-    // Notify parent if needed (URL change triggers fetch usually)
+
     if (onCategoryChange) onCategoryChange(newCategory);
   };
 
   const handleApplyFilters = () => {
     const params = new URLSearchParams(searchParams);
-    
-    // Add price filters
+
     if (priceRange[0] > 0) {
       params.set('minPrice', priceRange[0]);
     } else {
@@ -49,8 +45,7 @@ const ShopSidebar = ({ onCategoryChange }) => {
     } else {
       params.delete('maxPrice');
     }
-    
-    // Add dietary filters
+
     const dietary = [];
     if (isVeg) dietary.push('veg');
     if (isNonVeg) dietary.push('nonveg');
@@ -66,7 +61,7 @@ const ShopSidebar = ({ onCategoryChange }) => {
 
   return (
     <aside className="w-full lg:w-64 shrink-0 space-y-8">
-      {/* Categories */}
+      {}
       <div>
         <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-[#181311] dark:text-white">
           <span className="material-symbols-outlined text-primary">category</span> Categories
@@ -90,11 +85,11 @@ const ShopSidebar = ({ onCategoryChange }) => {
 
       <hr className="border-[#f5f1f0] dark:border-gray-800" />
 
-      {/* Price Range */}
+      {}
       <div>
         <h3 className="font-bold text-lg mb-4 text-[#181311] dark:text-white">Price Range</h3>
         <div className="px-1">
-          {/* Price Display */}
+          {}
           <div className="flex items-center justify-between mb-4 text-sm">
             <span className="text-gray-600 dark:text-gray-400">
               ₹{priceRange[0]}
@@ -105,9 +100,9 @@ const ShopSidebar = ({ onCategoryChange }) => {
             </span>
           </div>
           
-          {/* Custom Range Slider */}
+          {}
           <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full mb-6">
-            {/* Active Range Track */}
+            {}
             <div 
               className="absolute h-full bg-primary rounded-full"
               style={{
@@ -116,7 +111,7 @@ const ShopSidebar = ({ onCategoryChange }) => {
               }}
             />
             
-            {/* Min Range Input */}
+            {}
             <input
               type="range"
               min="0"
@@ -130,7 +125,7 @@ const ShopSidebar = ({ onCategoryChange }) => {
               className="absolute w-full h-2 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-primary [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:shadow-md"
             />
             
-            {/* Max Range Input */}
+            {}
             <input
               type="range"
               min="0"
@@ -149,7 +144,7 @@ const ShopSidebar = ({ onCategoryChange }) => {
 
       <hr className="border-[#f5f1f0] dark:border-gray-800" />
 
-      {/* Dietary */}
+      {}
       <div>
         <h3 className="font-bold text-lg mb-4 text-[#181311] dark:text-white">Dietary</h3>
         <div className="space-y-3">
@@ -182,7 +177,7 @@ const ShopSidebar = ({ onCategoryChange }) => {
 
       <hr className="border-[#f5f1f0] dark:border-gray-800" />
 
-      {/* Apply Filters Button */}
+      {}
       <button
         onClick={handleApplyFilters}
         className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"

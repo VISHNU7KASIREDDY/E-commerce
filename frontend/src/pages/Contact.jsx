@@ -19,13 +19,6 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Replace these placeholders with your actual EmailJS credentials
-    // You should preferably use environment variables:
-    // import.meta.env.VITE_EMAILJS_SERVICE_ID
-    // import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-    // import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-
-    // For now, I will use placeholders that you can update.
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
@@ -59,7 +52,7 @@ const Contact = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Form */}
+          {}
           <div className="bg-white dark:bg-neutral-800 rounded-xl p-8 shadow-lg">
             <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">Send us a message</h2>
             <form ref={form} onSubmit={handleSubmit} className="space-y-6">
@@ -137,7 +130,7 @@ const Contact = () => {
             </form>
           </div>
 
-          {/* Contact Info */}
+          {}
           <div className="space-y-8">
             <div className="bg-white dark:bg-neutral-800 rounded-xl p-8 shadow-lg">
               <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">Get in Touch</h2>

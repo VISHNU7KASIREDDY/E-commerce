@@ -35,7 +35,7 @@ const UserManagement = () => {
     e.preventDefault();
     try {
       if (editingUser) {
-        // Don't send password if editing and it's empty
+
         const updateData = { ...formData };
         if (!updateData.password) {
           delete updateData.password;
@@ -60,7 +60,7 @@ const UserManagement = () => {
     setFormData({
       name: user.name,
       email: user.email,
-      password: '', // Don't populate password
+      password: '', 
       role: user.role,
     });
     setShowModal(true);
@@ -113,7 +113,7 @@ const UserManagement = () => {
         </button>
       </div>
 
-      {/* Users Table */}
+      {}
       <div className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden">
         <table className="w-full">
           <thead className="bg-neutral-50 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700">
@@ -177,7 +177,7 @@ const UserManagement = () => {
         </table>
       </div>
 
-      {/* Add/Edit Modal */}
+      {}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-neutral-800 rounded-xl max-w-md w-full">

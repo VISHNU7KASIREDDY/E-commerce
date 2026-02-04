@@ -20,9 +20,9 @@ const Home = () => {
     try {
       setLoading(true);
       const data = await productService.getProducts();
-      // Filter only bestseller products
+
       const bestsellers = data.filter(product => product.isBestseller);
-      setProducts(bestsellers.slice(0, 8)); // Show first 8 bestsellers
+      setProducts(bestsellers.slice(0, 8)); 
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
@@ -31,14 +31,14 @@ const Home = () => {
   };
 
   const handleAddToCart = (product, e) => {
-    e.stopPropagation(); // Prevent navigation when clicking button
+    e.stopPropagation(); 
     addToCart(product._id, 1, product.sizes?.[0] || '250g');
   };
 
   return (
     <div className="relative flex min-h-screen w-full flex-col">
       <div className="layout-container flex h-full grow flex-col items-center">
-        {/* Hero Section */}
+        {}
         <div className="w-full max-w-[1280px] p-4 lg:p-8">
           <div
             className="flex min-h-[500px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-start justify-end px-6 pb-12 md:px-12 md:pb-16 relative overflow-hidden shadow-lg"
@@ -61,13 +61,13 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Shop by Category */}
+        {}
         <div className="flex flex-col max-w-[1280px] w-full px-4 lg:px-8 py-8">
           <h2 className="text-neutral-900 dark:text-white tracking-tight text-2xl md:text-3xl font-bold leading-tight text-left pb-6">
             Shop by Category
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {/* Pickles */}
+            {}
             <Link to="/shop?category=pickles" className="group flex flex-col items-center gap-4 text-center cursor-pointer">
               <div className="w-full aspect-square rounded-full overflow-hidden border-4 border-transparent group-hover:border-primary/20 transition-all duration-300">
                 <div
@@ -82,7 +82,7 @@ const Home = () => {
               </p>
             </Link>
 
-            {/* Podis */}
+            {}
             <Link to="/shop?category=podis" className="group flex flex-col items-center gap-4 text-center cursor-pointer">
               <div className="w-full aspect-square rounded-full overflow-hidden border-4 border-transparent group-hover:border-primary/20 transition-all duration-300">
                 <div
@@ -97,7 +97,7 @@ const Home = () => {
               </p>
             </Link>
 
-            {/* Spices */}
+            {}
             <Link to="/shop?category=spices" className="group flex flex-col items-center gap-4 text-center cursor-pointer">
               <div className="w-full aspect-square rounded-full overflow-hidden border-4 border-transparent group-hover:border-primary/20 transition-all duration-300">
                 <div
@@ -112,7 +112,7 @@ const Home = () => {
               </p>
             </Link>
 
-            {/* Snacks */}
+            {}
             <Link to="/shop?category=snacks" className="group flex flex-col items-center gap-4 text-center cursor-pointer">
               <div className="w-full aspect-square rounded-full overflow-hidden border-4 border-transparent group-hover:border-primary/20 transition-all duration-300">
                 <div
@@ -129,7 +129,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Bestsellers */}
+        {}
         <div className="flex flex-col max-w-[1280px] w-full px-4 lg:px-8 py-8">
           <h2 className="text-neutral-900 dark:text-white tracking-tight text-2xl md:text-3xl font-bold leading-tight text-left pb-6">
             Bestsellers
@@ -159,7 +159,7 @@ const Home = () => {
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    {/* Action Buttons */}
+                    {}
                     <div className="absolute bottom-4 right-4 flex gap-2">
                       <WishlistButton 
                         productId={product._id} 

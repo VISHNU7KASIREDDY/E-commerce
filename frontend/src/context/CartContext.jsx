@@ -19,13 +19,9 @@ export const CartProvider = ({ children }) => {
   const [itemCount, setItemCount] = useState(0);
   const prevUserIdRef = React.useRef();
 
-  // Fetch cart when auth loading completes or when userId changes
   useEffect(() => {
     const currentUserId = user?._id;
-    
-    // Only fetch if:
-    // 1. Auth has finished loading, AND
-    // 2. UserId has actually changed (including from undefined to a value)
+
     if (!authLoading && prevUserIdRef.current !== currentUserId) {
       console.log('Fetching cart - userId changed from', prevUserIdRef.current, 'to', currentUserId);
       prevUserIdRef.current = currentUserId;
@@ -33,7 +29,6 @@ export const CartProvider = ({ children }) => {
     }
   }, [authLoading, user?._id]);
 
-  //Calculate item count whenever cart changes
   useEffect(() => {
     if (cart && cart.products) {
       const count = cart.products.reduce((total, item) => total + item.quantity, 0);
@@ -50,20 +45,19 @@ export const CartProvider = ({ children }) => {
       console.log('Fetching cart for userId:', userId);
       const cartData = await cartService.getCart(userId);
       console.log('Cart fetched successfully:', cartData);
-      
-      // Only update cart if we got valid data
+
       if (cartData) {
         setCart(cartData);
       }
     } catch (error) {
       console.error('Error fetching cart:', error);
-      // If it's a 404, that means no cart exists yet - this is OK, keep current cart
+
       if (error.response?.status === 404) {
         console.log('No cart found (404), keeping current cart state');
-        // Don't update cart on 404 - the empty cart from state initialization is fine
+
       } else {
         console.error('Server error fetching cart:', error);
-        // On server errors, don't clear the cart
+
       }
     } finally {
       setLoading(false);

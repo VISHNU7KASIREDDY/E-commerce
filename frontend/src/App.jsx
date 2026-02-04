@@ -30,7 +30,7 @@ const App = () => {
         <CartProvider>
           <WishlistProvider>
           <Routes>
-            {/* User Routes */}
+            {}
             <Route path="/" element={<UserLayout />}>
               <Route index element={<Home />} />
               <Route path="login" element={<Login />} />
@@ -44,7 +44,7 @@ const App = () => {
               <Route path="product/:id" element={<ProductDetails />} />
             </Route>
 
-            {/* Admin Routes */}
+            {}
             <Route
               path="/admin"
               element={

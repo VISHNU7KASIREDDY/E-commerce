@@ -105,7 +105,7 @@ const Shop = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10 min-h-screen flex flex-col">
-      {/* Breadcrumbs */}
+      {}
       <nav className="flex mb-6 text-sm font-medium text-[#8a6e60] dark:text-gray-400">
         <ol className="flex flex-wrap items-center gap-2">
           <li><Link to="/" className="hover:text-primary transition-colors">Home</Link></li>
@@ -121,12 +121,12 @@ const Shop = () => {
       </nav>
 
       <div className="flex flex-col lg:flex-row gap-8 xl:gap-12 relative">
-        {/* Sidebar - Hidden on mobile, shown on lg */}
+        {}
         <div className="hidden lg:block">
             <ShopSidebar />
         </div>
 
-        {/* Mobile Filter Drawer Overlay - Optional implementation for better UX */}
+        {}
         {isMobileFilterOpen && (
             <div className="fixed inset-0 z-50 bg-black/50 lg:hidden" onClick={() => setIsMobileFilterOpen(false)}>
                 <div className="absolute left-0 top-0 bottom-0 w-3/4 max-w-xs bg-white dark:bg-background-dark p-4 overflow-y-auto" onClick={e => e.stopPropagation()}>
@@ -141,9 +141,9 @@ const Shop = () => {
             </div>
         )}
 
-        {/* Main Content */}
+        {}
         <main className="flex-1 w-full">
-          {/* Header & Toolbar */}
+          {}
           <div className="mb-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
               <div>
@@ -159,9 +159,9 @@ const Shop = () => {
               </div>
             </div>
 
-            {/* Toolbar */}
+            {}
             <div className="flex flex-wrap items-center justify-between gap-4 bg-surface-light dark:bg-surface-dark p-3 rounded-lg shadow-sm border border-[#f5f1f0] dark:border-gray-800">
-               {/* Mobile Filter Trigger */}
+               {}
                <button 
                 onClick={() => setIsMobileFilterOpen(true)}
                 className="lg:hidden flex items-center gap-2 px-4 py-2 bg-background-light dark:bg-[#3a2c26] rounded-md text-sm font-semibold hover:bg-gray-200 transition"
@@ -190,7 +190,7 @@ const Shop = () => {
             </div>
           </div>
 
-          {/* Product Grid */}
+          {}
           {loading ? (
              <div className="flex justify-center items-center min-h-[300px]">
                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>

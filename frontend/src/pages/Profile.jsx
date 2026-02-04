@@ -42,7 +42,7 @@ const Profile = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      {/* User Info Card */}
+      {}
       <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 border border-neutral-200 dark:border-neutral-700 mb-8">
         <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-6">Profile</h1>
         
@@ -79,7 +79,7 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* My Orders Section */}
+      {}
       <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 border border-neutral-200 dark:border-neutral-700">
         <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-6">My Orders</h2>
         

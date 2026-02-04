@@ -12,19 +12,16 @@ const Header = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Sync search input with URL query param
   React.useEffect(() => {
     const params = new URLSearchParams(search);
     const query = params.get('search');
-    setSearchQuery(query || ''); // Set to empty string if no search param
+    setSearchQuery(query || ''); 
   }, [search]);
 
-  // Auto-clear search from URL when input is emptied
   React.useEffect(() => {
     const params = new URLSearchParams(search);
     const currentSearch = params.get('search');
-    
-    // If URL has search but input is empty, clear the URL
+
     if (currentSearch && searchQuery.trim() === '') {
       params.delete('search');
       const newSearch = params.toString();
@@ -37,7 +34,7 @@ const Header = () => {
     if (searchQuery.trim()) {
       navigate(`/shop?search=${encodeURIComponent(searchQuery)}`);
     } else {
-      // If search is cleared, remove search param but keep current location
+
       const params = new URLSearchParams(search);
       params.delete('search');
       const newSearch = params.toString();
@@ -62,7 +59,7 @@ const Header = () => {
           </h2>
         </Link>
 
-        {/* Search Bar */}
+        {}
         <form onSubmit={handleSearch} className="hidden md:flex flex-col min-w-40 lg:w-[400px] !h-10">
           <div className="flex w-full flex-1 items-stretch rounded-lg h-full ring-1 ring-neutral-200 dark:ring-neutral-700 focus-within:ring-2 focus-within:ring-primary transition-all">
             <button type="submit" className="text-neutral-500 dark:text-neutral-400 flex border-none bg-neutral-100 dark:bg-neutral-800 items-center justify-center pl-4 rounded-l-lg border-r-0 hover:text-primary transition-colors cursor-pointer">
@@ -79,7 +76,7 @@ const Header = () => {
       </div>
 
       <div className="flex flex-1 justify-end gap-4 lg:gap-8 items-center">
-        {/* Navigation Links */}
+        {}
         <div className="hidden xl:flex items-center gap-6">
           <Link
             to="/shop"
@@ -101,14 +98,14 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Action Buttons */}
+        {}
         <div className="flex gap-3">
           {isAuthenticated ? (
             <div className="relative group">
               <button className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors text-neutral-900 dark:text-white text-sm font-bold leading-normal tracking-[0.015em]">
                 <span className="truncate">{user?.name || 'Account'}</span>
               </button>
-              {/* Dropdown */}
+              {}
               <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-800 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
                 <Link
                   to="/profile"

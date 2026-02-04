@@ -8,19 +8,18 @@ const sendContactEmail = async (req, res) => {
   }
 
   try {
-    // Create transporter
+
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // You can change this if using another provider
+      service: 'gmail', 
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
     });
 
-    // Email options
     const mailOptions = {
-      from: email, // Sender address (from the form)
-      to: process.env.EMAIL_USER, // Receiver address (your email)
+      from: email, 
+      to: process.env.EMAIL_USER, 
       replyTo: email,
       subject: `New Contact Form Submission: ${subject}`,
       html: `
@@ -33,7 +32,6 @@ const sendContactEmail = async (req, res) => {
       `,
     };
 
-    // Send email
     await transporter.sendMail(mailOptions);
 
     res.status(200).json({ message: 'Email sent successfully' });

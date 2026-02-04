@@ -20,14 +20,12 @@ router.post('/',protect,admin,async (req,res)=>{
       ingredients,sizePricing,isVegetarian
     }=req.body
 
-    // Validate discount price
     if (discountPrice && discountPrice > price) {
       return res.status(400).json({ 
         message: 'Discount price must be less than or equal to price' 
       });
     }
 
-    // Validate sizePricing array
     if (sizePricing && sizePricing.length > 0) {
       for (let sp of sizePricing) {
         if (sp.discountPrice && sp.discountPrice > sp.price) {
@@ -60,7 +58,7 @@ router.put('/:id',protect,admin,async (req,res)=>{
     const product=await Product.findById(req.params.id);
 
     if (product){
-      // Validate discount price
+
       const newPrice = price || product.price;
       const newDiscountPrice = discountPrice !== undefined ? discountPrice : product.discountPrice;
       
@@ -70,7 +68,6 @@ router.put('/:id',protect,admin,async (req,res)=>{
         });
       }
 
-      // Validate sizePricing array
       if (sizePricing && sizePricing.length > 0) {
         for (let sp of sizePricing) {
           if (sp.discountPrice && sp.discountPrice > sp.price) {
@@ -95,7 +92,6 @@ router.put('/:id',protect,admin,async (req,res)=>{
       product.sizePricing=sizePricing || product.sizePricing
       product.isVegetarian=isVegetarian !== undefined ? isVegetarian : product.isVegetarian
 
-    
     const updatedProduct=await product.save()
 
     res.status(201).json(updatedProduct)

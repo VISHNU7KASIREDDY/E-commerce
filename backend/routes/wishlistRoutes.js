@@ -5,13 +5,10 @@ const Product = require('../models/product');
 
 const router = express.Router();
 
-// @route   GET /api/wishlist
-// @desc    Get user's wishlist
-// @access  Private
 router.get('/', protect, async (req, res) => {
   try {
     const user = await User.findById(req.user._id).populate('wishlist');
-    // Initialize wishlist if it doesn't exist (for existing users)
+
     if (!user.wishlist) {
       user.wishlist = [];
       await user.save();
@@ -23,14 +20,10 @@ router.get('/', protect, async (req, res) => {
   }
 });
 
-// @route   POST /api/wishlist/:productId
-// @desc    Add product to wishlist
-// @access  Private
 router.post('/:productId', protect, async (req, res) => {
   try {
     const { productId } = req.params;
 
-    // Check if product exists
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
@@ -38,12 +31,10 @@ router.post('/:productId', protect, async (req, res) => {
 
     const user = await User.findById(req.user._id);
 
-    // Initialize wishlist if it doesn't exist (for existing users)
     if (!user.wishlist) {
       user.wishlist = [];
     }
 
-    // Check if product already in wishlist
     if (user.wishlist.includes(productId)) {
       return res.status(400).json({ message: 'Product already in wishlist' });
     }
@@ -59,21 +50,16 @@ router.post('/:productId', protect, async (req, res) => {
   }
 });
 
-// @route   DELETE /api/wishlist/:productId
-// @desc    Remove product from wishlist
-// @access  Private
 router.delete('/:productId', protect, async (req, res) => {
   try {
     const { productId } = req.params;
 
     const user = await User.findById(req.user._id);
 
-    // Initialize wishlist if it doesn't exist (for existing users)
     if (!user.wishlist) {
       user.wishlist = [];
     }
 
-    // Remove product from wishlist
     user.wishlist = user.wishlist.filter(
       (item) => item.toString() !== productId
     );

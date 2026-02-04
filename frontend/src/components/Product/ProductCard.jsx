@@ -67,12 +67,12 @@ const ProductCard = ({ product }) => {
             </h3>
         </Link>
 
-        {/* Description/Tags */}
+        {}
         <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 truncate">
           {product.description || 'Authentic • Homemade • Spicy'}
         </p>
 
-        {/* Size Selector */}
+        {}
         <div className="flex gap-2 mb-4">
           <span className="text-[10px] font-bold uppercase text-gray-400 tracking-wider self-center mr-1">Size:</span>
           {product.sizes?.map((size) => (

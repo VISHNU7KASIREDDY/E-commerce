@@ -65,7 +65,7 @@ const ReviewList = ({ reviews, onReviewsUpdated }) => {
                   {review.user?.name || 'Anonymous'}
                 </h4>
                 <span className="text-xs text-[#8a6e60] dark:text-[#a89085]">
-                  {review.verified && '✓ Verified Buyer • '}
+                  {review.verified && ' Verified Buyer • '}
                   {formatDate(review.createdAt)}
                 </span>
               </div>

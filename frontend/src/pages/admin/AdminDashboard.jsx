@@ -43,7 +43,7 @@ const AdminDashboard = () => {
       <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-8">Dashboard Overview</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Products Card */}
+        {}
         <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 border border-neutral-200 dark:border-neutral-700">
           <div className="flex items-center justify-between">
             <div>
@@ -56,7 +56,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Users Card */}
+        {}
         <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 border border-neutral-200 dark:border-neutral-700">
           <div className="flex items-center justify-between">
             <div>
@@ -69,7 +69,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Quick Actions */}
+        {}
         <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 border border-neutral-200 dark:border-neutral-700">
           <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">Quick Actions</h3>
           <div className="space-y-2">

@@ -21,7 +21,7 @@ router.get('/:id',async(req,res)=>{
 router.get('/',async(req,res)=>{
   try{
     const {category}=req.query
-    // If category is provided, filter by it; otherwise return all products
+
     const query = category ? {category: category} : {};
     const products=await Product.find(query)
     res.status(200).json(products)
@@ -30,7 +30,5 @@ router.get('/',async(req,res)=>{
     res.status(500).send('Server Error')
   }
 })
-
-
 
 module.exports=router;

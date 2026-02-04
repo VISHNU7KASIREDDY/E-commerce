@@ -59,7 +59,6 @@ const ProductManagement = () => {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -85,7 +84,6 @@ const ProductManagement = () => {
       alert(`Error: ${errorMsg}`);
     }
   };
-
 
   const handleEdit = (product) => {
     setEditingProduct(product);
@@ -202,7 +200,7 @@ const ProductManagement = () => {
         </button>
       </div>
 
-      {/* Products Table */}
+      {}
       <div className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 overflow-hidden">
         <table className="w-full">
           <thead className="bg-neutral-50 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700">
@@ -287,7 +285,7 @@ const ProductManagement = () => {
         </table>
       </div>
 
-      {/* Add/Edit Modal */}
+      {}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-neutral-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
@@ -393,7 +391,7 @@ const ProductManagement = () => {
                 />
               </div>
 
-              {/* Size-Specific Pricing */}
+              {}
               <div className="border border-neutral-300 dark:border-neutral-600 rounded-lg p-4 bg-neutral-50 dark:bg-neutral-900">
                 <div className="flex justify-between items-center mb-3">
                   <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">

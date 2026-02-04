@@ -58,7 +58,7 @@ const ReviewForm = ({ productId, existingReview, onReviewSubmitted, onCancel }) 
         {existingReview ? 'Edit Your Review' : 'Write a Review'}
       </h3>
 
-      {/* Star Rating */}
+      {}
       <div className="mb-4">
         <label className="block text-sm font-medium text-[#181311] dark:text-white mb-2">
           Rating *
@@ -85,7 +85,7 @@ const ReviewForm = ({ productId, existingReview, onReviewSubmitted, onCancel }) 
         </div>
       </div>
 
-      {/* Title */}
+      {}
       <div className="mb-4">
         <label className="block text-sm font-medium text-[#181311] dark:text-white mb-2">
           Review Title (Optional)
@@ -100,7 +100,7 @@ const ReviewForm = ({ productId, existingReview, onReviewSubmitted, onCancel }) 
         />
       </div>
 
-      {/* Comment */}
+      {}
       <div className="mb-4">
         <label className="block text-sm font-medium text-[#181311] dark:text-white mb-2">
           Your Review *
@@ -115,7 +115,7 @@ const ReviewForm = ({ productId, existingReview, onReviewSubmitted, onCancel }) 
         />
       </div>
 
-      {/* Buttons */}
+      {}
       <div className="flex gap-3">
         <button
           type="submit"

@@ -25,7 +25,7 @@ const OrderManagement = () => {
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
       await api.put(`/admin/orders/${orderId}/status`, { status: newStatus });
-      fetchOrders(); // Refresh orders after update
+      fetchOrders(); 
     } catch (error) {
       console.error('Error updating order status:', error);
       alert('Failed to update order status');
@@ -37,7 +37,7 @@ const OrderManagement = () => {
       try {
         await api.delete(`/admin/orders/${orderId}`);
         alert('Order deleted successfully');
-        fetchOrders(); // Refresh orders after deletion
+        fetchOrders(); 
       } catch (error) {
         console.error('Error deleting order:', error);
         alert('Failed to delete order');
@@ -74,7 +74,7 @@ const OrderManagement = () => {
         <p className="text-neutral-600 dark:text-neutral-400">Manage and track all customer orders</p>
       </div>
 
-      {/* Filter Tabs */}
+      {}
       <div className="flex gap-2 mb-6 border-b border-neutral-200 dark:border-neutral-700">
         {['all', 'processing', 'shipped', 'delivered', 'cancelled'].map((status) => (
           <button
@@ -91,7 +91,7 @@ const OrderManagement = () => {
         ))}
       </div>
 
-      {/* Orders Table */}
+      {}
       <div className="bg-white dark:bg-neutral-800 rounded-lg shadow overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700">

@@ -30,9 +30,7 @@ const Navbar = () => {
         </div>
 
         <div className='container w-1/2 flex items-center justify-around'>
-          {/* <Link to='/profile' className='hover:text-orange-500' >
-            <HiOutlineUser/>
-          </Link> */}
+          {}
           <div className='w-1/3'>
           <input
             type="text"

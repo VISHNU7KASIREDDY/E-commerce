@@ -4,7 +4,6 @@ const {protect}=require("../middlewares/authMiddleware")
 
 const router=express.Router()
 
-// Create new order
 router.post("/",protect,async(req,res)=>{
   try{
     const { orderItems, totalPrice, shippingAddress, paymentMethod } = req.body;
@@ -13,7 +12,6 @@ router.post("/",protect,async(req,res)=>{
       return res.status(400).json({ message: "No order items" });
     }
 
-    // Generate order number
     const orderNumber = 'ORD-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
 
     const order = await Order.create({

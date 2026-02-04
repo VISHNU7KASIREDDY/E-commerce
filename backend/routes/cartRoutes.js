@@ -16,16 +16,15 @@ const getCart=async (userId,guestId)=>{
   }
 }
 
-// Helper function to get price for specific size
 const getPriceForSize=(product,size)=>{
-  // Check if sizePricing exists and has data
+
   if (product.sizePricing && product.sizePricing.length > 0) {
     const sizeData = product.sizePricing.find(sp => sp.size === size);
     if (sizeData) {
       return sizeData.discountPrice || sizeData.price;
     }
   }
-  // Fall back to base price
+
   return product.discountPrice || product.price;
 }
 
@@ -44,7 +43,7 @@ router.get('/',async (req,res)=>{
       res.status(200).json(cart)
     }else{
       console.log('No cart found, returning empty cart');
-      // Return empty cart instead of 404 to prevent cart from being cleared on refresh
+
       return res.status(200).json({ products: [], totalPrice: 0 })
     }
   }catch(err){
@@ -52,7 +51,6 @@ router.get('/',async (req,res)=>{
     res.status(500).send('Server Error')
   }
 })
-
 
 router.post('/',async(req,res)=>{
   const {productId,quantity,size,category,guestId,userId}=req.body
@@ -137,7 +135,7 @@ router.put('/',protect,async (req,res)=>{
     )
     if (productIndex>-1){
       if (quantity>0){
-        // Fetch product to get correct price for size
+
         const product = await Product.findById(productId);
         if (product) {
           const itemPrice = getPriceForSize(product, size);

@@ -1,7 +1,7 @@
 import api from './api';
 
 export const adminService = {
-  // Product Management
+
   getAllProducts: async () => {
     const response = await api.get('/admin/products');
     return response.data;
@@ -22,7 +22,6 @@ export const adminService = {
     return response.data;
   },
 
-  // User Management
   getAllUsers: async () => {
     const response = await api.get('/admin/users');
     return response.data;
@@ -43,7 +42,6 @@ export const adminService = {
     return response.data;
   },
 
-  // Image Upload
   uploadImage: async (file) => {
     const formData = new FormData();
     formData.append('image', file);

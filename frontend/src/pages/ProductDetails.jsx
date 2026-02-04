@@ -35,9 +35,7 @@ const ProductDetails = () => {
       setProduct(data);
       setMainImage(data.images?.[0]?.url || '');
       setSelectedSize(data.sizes?.[0] || '250g');
-      
-      // Fetch related products (mock logic: fetch all and take first 4)
-      // In a real app, you'd have a specific endpoint or filter
+
       try {
         const allProducts = await productService.getProducts();
         setRelatedProducts(allProducts.filter(p => p._id !== id).slice(0, 4));
@@ -45,7 +43,6 @@ const ProductDetails = () => {
         console.error('Error fetching related products:', err);
       }
 
-      // Fetch reviews
       await fetchReviews();
     } catch (error) {
       console.error('Error fetching product:', error);
@@ -58,8 +55,7 @@ const ProductDetails = () => {
     try {
       const reviewsData = await reviewService.getProductReviews(id);
       setReviews(reviewsData);
-      
-      // Calculate average rating
+
       if (reviewsData.length > 0) {
         const avg = reviewsData.reduce((sum, r) => sum + r.rating, 0) / reviewsData.length;
         setAverageRating(Math.round(avg * 10) / 10);
@@ -109,7 +105,7 @@ const ProductDetails = () => {
   return (
     <div className="bg-background-light dark:bg-background-dark min-h-screen pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
-        {/* Breadcrumbs */}
+        {}
         <div className="flex flex-wrap items-center gap-2 py-4 text-sm mb-6">
           <Link to="/" className="text-[#8a6e60] dark:text-[#a89085] hover:text-primary font-medium">Home</Link>
           <span className="material-symbols-outlined text-[16px] text-[#8a6e60]">chevron_right</span>
@@ -119,7 +115,7 @@ const ProductDetails = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left: Gallery */}
+          {}
           <div className="flex flex-col gap-4">
             <div className="w-full aspect-square md:aspect-[4/3] rounded-xl overflow-hidden bg-white dark:bg-[#2f221c] border border-[#e6e0dd] dark:border-[#3a2d25]">
               <img 
@@ -145,7 +141,7 @@ const ProductDetails = () => {
             )}
           </div>
 
-          {/* Right: Details */}
+          {}
           <div className="flex flex-col gap-6">
             <div>
               <div className="flex items-center gap-2 mb-2">
@@ -180,7 +176,7 @@ const ProductDetails = () => {
               </p>
             </div>
 
-            {/* Size Selector */}
+            {}
             <div className="flex flex-col gap-3">
               <span className="text-sm font-bold text-[#181311] dark:text-white uppercase tracking-wider">Select Size</span>
               <div className="flex flex-wrap gap-3">
@@ -200,7 +196,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Actions */}
+            {}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <div className="flex items-center border border-[#e6e0dd] dark:border-[#3a2d25] rounded-lg h-12 w-32 bg-white dark:bg-[#2f221c]">
                 <button 
@@ -232,7 +228,7 @@ const ProductDetails = () => {
               <WishlistButton productId={product._id} />
             </div>
 
-            {/* Trust Badges */}
+            {}
             <div className="grid grid-cols-3 gap-4 pt-4">
               <div className="flex flex-col items-center gap-2 text-center">
                 <div className="size-10 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 flex items-center justify-center">
@@ -256,7 +252,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Tabbed Info */}
+        {}
         <div className="mt-20">
           <div className="border-b border-[#e6e0dd] dark:border-[#3a2d25]">
             <div className="flex gap-8 overflow-x-auto no-scrollbar">
@@ -345,7 +341,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Reviews Section */}
+        {}
         <div className="mt-12 py-10 border-t border-[#e6e0dd] dark:border-[#3a2d25]">
           <div className="flex flex-col md:flex-row gap-10 items-start">
             <div className="w-full md:w-1/3">
@@ -384,7 +380,7 @@ const ProductDetails = () => {
               )}
             </div>
             
-            {/* Reviews List */}
+            {}
             <div className="flex-1 w-full space-y-6">
               {showReviewForm && (
                 <div className="mb-6">
@@ -400,7 +396,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        {/* Related Products */}
+        {}
         {relatedProducts.length > 0 && (
           <div className="mt-12">
             <h2 className="text-2xl font-bold text-[#181311] dark:text-white mb-6">You might also like</h2>
