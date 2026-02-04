@@ -47,7 +47,7 @@ app.use("/api/admin/orders",orderAdminRoutes)
 app.use("/api/wishlist",wishlistRoutes)
 
 app.use("/api/reviews",reviewRoutes)
-app.use("/api/contact", require("./routes/contactRoutes"));
+
 
 app.listen(PORT,()=>{
   console.log(`Server running on port ${PORT}`)
