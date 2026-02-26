@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
@@ -8,7 +9,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
+  const { register, googleLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,6 +22,19 @@ const Register = () => {
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to register. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setError('');
+    setLoading(true);
+    try {
+      await googleLogin(credentialResponse.credential);
+      navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Google sign-up failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -106,6 +120,25 @@ const Register = () => {
             {loading ? 'Creating account...' : 'Create Account'}
           </button>
         </form>
+
+        {}
+        <div className="my-6 flex items-center gap-4">
+          <div className="flex-1 h-px bg-neutral-300 dark:bg-neutral-600"></div>
+          <span className="text-sm text-neutral-500 dark:text-neutral-400">or</span>
+          <div className="flex-1 h-px bg-neutral-300 dark:bg-neutral-600"></div>
+        </div>
+
+        {}
+        <div className="flex justify-center">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={() => setError('Google sign-up failed. Please try again.')}
+            theme="outline"
+            size="large"
+            width="100%"
+            text="signup_with"
+          />
+        </div>
 
         {}
         <div className="mt-6 text-center">

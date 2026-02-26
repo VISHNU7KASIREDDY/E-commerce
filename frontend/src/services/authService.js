@@ -11,6 +11,15 @@ export const authService = {
     return response.data;
   },
 
+  googleLogin: async (credential) => {
+    const response = await api.post('/users/google-login', { credential });
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+    }
+    return response.data;
+  },
+
   register: async (name, email, password) => {
     const response = await api.post('/users/register', { name, email, password });
     if (response.data.token) {

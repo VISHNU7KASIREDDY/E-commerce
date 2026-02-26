@@ -17,8 +17,17 @@ const userSchema= new mongoose.Schema(
     },
     password:{
         type:String,
-        required:true,
         minLength:6,
+    },
+    googleId:{
+        type:String,
+        unique:true,
+        sparse:true,
+    },
+    authProvider:{
+        type:String,
+        enum:["local","google"],
+        default:"local",
     },
     role:{
         type:String,
@@ -33,8 +42,15 @@ const userSchema= new mongoose.Schema(
     {timestamps:true}
 )
 
+userSchema.pre("validate", function (next) {
+  if (this.authProvider === "local" && !this.password) {
+    this.invalidate("password", "Password is required for local accounts");
+  }
+  next();
+});
+
 userSchema.pre("save", async function () {
-  if (!this.isModified("password")) return;
+  if (!this.isModified("password") || !this.password) return;
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });

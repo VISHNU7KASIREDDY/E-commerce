@@ -16,8 +16,8 @@ const reviewRoutes=require("./routes/reviewRoutes")
 const app=express();
 const connectDB=require('./config/db')
 
-// Simplest CORS for public API (since we use Bearer tokens, not cookies)
-app.use(cors()); // Defaults to origin: '*'
+
+app.use(cors()); 
 app.use(express.json())
 
 const PORT=process.env.PORT||3000;

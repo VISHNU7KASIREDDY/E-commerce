@@ -42,6 +42,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const googleLogin = async (credential) => {
+    try {
+      const data = await authService.googleLogin(credential);
+      setUser(data.user);
+
+      try {
+        await cartService.mergeCart();
+      } catch (error) {
+        console.error('Error merging cart:', error);
+      }
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const register = async (name, email, password) => {
     try {
       const data = await authService.register(name, email, password);
@@ -62,6 +79,7 @@ export const AuthProvider = ({ children }) => {
     user,
     loading,
     login,
+    googleLogin,
     register,
     logout,
     isAuthenticated: !!user,

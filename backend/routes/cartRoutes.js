@@ -30,9 +30,6 @@ const getPriceForSize=(product,size)=>{
 
 router.get('/',async (req,res)=>{
   const { userId, guestId } = req.query
-  console.log('=== GET CART REQUEST ===');
-  console.log('userId:', userId);
-  console.log('guestId:', guestId);
 
   try{
     let cart=await getCart(userId,guestId)
