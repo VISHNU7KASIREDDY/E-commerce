@@ -135,7 +135,7 @@ const Register = () => {
             onError={() => setError('Google sign-up failed. Please try again.')}
             theme="outline"
             size="large"
-            width="100%"
+            width={320}
             text="signup_with"
           />
         </div>

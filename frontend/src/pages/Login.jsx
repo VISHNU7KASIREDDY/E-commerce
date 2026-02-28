@@ -116,7 +116,7 @@ const Login = () => {
             onError={() => setError('Google sign-in failed. Please try again.')}
             theme="outline"
             size="large"
-            width="100%"
+            width={320}
             text="signin_with"
           />
         </div>
