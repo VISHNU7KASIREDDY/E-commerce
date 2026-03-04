@@ -42,11 +42,10 @@ const userSchema= new mongoose.Schema(
     {timestamps:true}
 )
 
-userSchema.pre("validate", function (next) {
+userSchema.pre("validate", async function () {
   if (this.authProvider === "local" && !this.password) {
     this.invalidate("password", "Password is required for local accounts");
   }
-  next();
 });
 
 userSchema.pre("save", async function () {
