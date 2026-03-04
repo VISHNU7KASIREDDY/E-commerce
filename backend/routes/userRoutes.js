@@ -81,57 +81,63 @@ router.post("/login",async (req,res)=>{
   }
 })
 
-router.post("/google-login",async (req,res)=>{
-  const {credential}=req.body
+router.post("/google-login", async (req, res) => {
+  const { credential } = req.body;
 
-  try{
-    const ticket=await googleClient.verifyIdToken({
-      idToken:credential,
-      audience:process.env.GOOGLE_CLIENT_ID,
-    })
-    const {sub:googleId,email,name}=ticket.getPayload()
+  if (!credential) {
+    return res.status(400).json({ message: "No Google credential provided" });
+  }
 
-    let user=await User.findOne({$or:[{googleId},{email}]})
+  try {
+    // Verify the Google ID token
+    const ticket = await googleClient.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const { sub: googleId, email, name } = ticket.getPayload();
 
-    if(user && !user.googleId){
-      user.googleId=googleId
-      user.authProvider="google"
-      await user.save()
+    // Find existing user or create a new one
+    let user = await User.findOne({ $or: [{ googleId }, { email }] });
+
+    if (user && !user.googleId) {
+      user.googleId = googleId;
+      user.authProvider = "google";
+      await user.save();
     }
 
-    if(!user){
-      user=new User({
+    if (!user) {
+      user = new User({
         name,
         email,
         googleId,
-        authProvider:"google",
-        role:"customer",
-      })
-      await user.save()
+        authProvider: "google",
+        role: "customer",
+      });
+      await user.save();
     }
 
-    const payload={user:{id:user._id,role:user.role}}
+    // Sign JWT as a promise so errors stay inside this try/catch
+    const token = await new Promise((resolve, reject) => {
+      jwt.sign(
+        { user: { id: user._id, role: user.role } },
+        process.env.JWT_SECRET,
+        { expiresIn: "48h" },
+        (err, token) => (err ? reject(err) : resolve(token))
+      );
+    });
 
-    jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:"48h"},(err,token)=>{
-      if(err) throw err
-
-      res.json({
-        user:{
-          _id:user._id,
-          name:user.name,
-          email:user.email,
-          role:user.role
-        },
-        token,
-      })
-    })
-  }catch(err){
-    if (err.message && (err.message.includes('Token') || err.message.includes('invalid') || err.message.includes('expired'))) {
-      console.error("Google token verification failed:", err.message)
-      return res.status(401).json({message:"Google token is invalid or expired. Please try again."})
-    }
-    console.error("Google login error:", err)
-    res.status(500).json({message:"Google authentication failed. Server error."})
+    res.json({
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+      token,
+    });
+  } catch (err) {
+    console.error("Google login error:", err.message);
+    res.status(401).json({ message: err.message || "Google authentication failed" });
   }
 })
 
