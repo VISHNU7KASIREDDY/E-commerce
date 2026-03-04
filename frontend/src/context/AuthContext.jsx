@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { authService } from '../services/authService';
 import { cartService } from '../services/cartService';
 
@@ -13,17 +13,10 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-
-    const currentUser = authService.getCurrentUser();
-    if (currentUser) {
-      setUser(currentUser);
-    }
-    setLoading(false);
-  }, []);
+  // Lazy initializer: reads localStorage synchronously on first render
+  // so user is set BEFORE the first paint — no flicker
+  const [user, setUser] = useState(() => authService.getCurrentUser());
+  const [loading, setLoading] = useState(false);
 
   const login = async (email, password) => {
     try {

@@ -5,7 +5,7 @@ import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 
 const Header = () => {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, logout, loading } = useAuth();
   const { itemCount } = useCart();
   const { wishlistCount } = useWishlist();
   const { search } = useLocation();
@@ -100,7 +100,9 @@ const Header = () => {
 
         {}
         <div className="flex gap-3">
-          {isAuthenticated ? (
+          {loading ? (
+            <div className="h-10 w-[84px] rounded-lg bg-neutral-100 dark:bg-neutral-800 animate-pulse" />
+          ) : isAuthenticated ? (
             <div className="relative group">
               <button className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors text-neutral-900 dark:text-white text-sm font-bold leading-normal tracking-[0.015em]">
                 <span className="truncate">{user?.name || 'Account'}</span>
