@@ -72,9 +72,10 @@ export const AuthProvider = ({ children }) => {
     user,
     loading,
     login,
-    googleLogin,
+    googleLogin: undefined, // removed — now handled by Passport.js server-side redirect
     register,
     logout,
+    setUser,
     isAuthenticated: !!user,
   };
 

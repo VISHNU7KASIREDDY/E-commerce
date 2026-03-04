@@ -1,7 +1,10 @@
 const express =require('express');
 const cors =require('cors');
+const session = require('express-session');
 const dotenv=require("dotenv")
 dotenv.config()
+require('./config/passport');
+const passport = require('passport');
 const userRoutes=require("./routes/userRoutes")
 const productRoutes=require("./routes/productRoutes")
 const cartRoutes=require("./routes/cartRoutes")
@@ -13,6 +16,7 @@ const productAdminRoutes=require("./routes/productAdminRoutes")
 const orderAdminRoutes=require("./routes/orderAdminRoutes")
 const wishlistRoutes=require("./routes/wishlistRoutes")
 const reviewRoutes=require("./routes/reviewRoutes")
+const authRoutes=require("./routes/authRoutes")
 const app=express();
 const connectDB=require('./config/db')
 
@@ -24,7 +28,6 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (e.g. mobile apps, curl, Postman)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -35,11 +38,27 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
+
+// Session needed temporarily for OAuth redirect/callback flow only
+app.use(session({
+  secret: process.env.JWT_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 5 * 60 * 1000, // 5 minutes — just long enough for OAuth flow
+  },
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json())
 
 const PORT=process.env.PORT||3000;
 
 connectDB()
+
+app.use("/api/auth",authRoutes);
 
 app.use("/api/users",userRoutes);
 
