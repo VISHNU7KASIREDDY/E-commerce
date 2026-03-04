@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { cartService } from '../services/cartService';
 import { useAuth } from './AuthContext';
 
@@ -19,109 +19,72 @@ export const CartProvider = ({ children }) => {
   const [itemCount, setItemCount] = useState(0);
   const prevUserIdRef = React.useRef();
 
-  useEffect(() => {
-    const currentUserId = user?._id;
-
-    if (!authLoading && prevUserIdRef.current !== currentUserId) {
-      console.log('Fetching cart - userId changed from', prevUserIdRef.current, 'to', currentUserId);
-      prevUserIdRef.current = currentUserId;
-      fetchCart();
-    }
-  }, [authLoading, user?._id]);
-
-  useEffect(() => {
-    if (cart && cart.products) {
-      const count = cart.products.reduce((total, item) => total + item.quantity, 0);
-      setItemCount(count);
-    } else {
-      setItemCount(0);
-    }
-  }, [cart]);
-
-  const fetchCart = async () => {
+  const fetchCart = useCallback(async () => {
     try {
       setLoading(true);
-      const userId = user?._id;
-      console.log('Fetching cart for userId:', userId);
-      const cartData = await cartService.getCart(userId);
-      console.log('Cart fetched successfully:', cartData);
-
-      if (cartData) {
-        setCart(cartData);
-      }
+      const cartData = await cartService.getCart(user?._id);
+      if (cartData) setCart(cartData);
     } catch (error) {
-      console.error('Error fetching cart:', error);
-
-      if (error.response?.status === 404) {
-        console.log('No cart found (404), keeping current cart state');
-
-      } else {
-        console.error('Server error fetching cart:', error);
-
+      if (error.response?.status !== 404) {
+        console.error('Error fetching cart:', error);
       }
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?._id]);
 
-  const addToCart = async (productId, quantity, size, category) => {
+  // Only re-fetch when the logged-in user changes
+  useEffect(() => {
+    const currentUserId = user?._id;
+    if (!authLoading && prevUserIdRef.current !== currentUserId) {
+      prevUserIdRef.current = currentUserId;
+      fetchCart();
+    }
+  }, [authLoading, user?._id, fetchCart]);
+
+  // Keep itemCount in sync with cart
+  useEffect(() => {
+    setItemCount(
+      cart?.products?.reduce((total, item) => total + item.quantity, 0) ?? 0
+    );
+  }, [cart]);
+
+  const addToCart = useCallback(async (productId, quantity, size, category) => {
     try {
-      const userId = user?._id;
-      const updatedCart = await cartService.addToCart(
-        productId,
-        quantity,
-        size,
-        category,
-        userId
-      );
+      const updatedCart = await cartService.addToCart(productId, quantity, size, category, user?._id);
       setCart(updatedCart);
       return updatedCart;
     } catch (error) {
       console.error('Error adding to cart:', error);
       throw error;
     }
-  };
+  }, [user?._id]);
 
-  const updateQuantity = async (productId, quantity, size, category) => {
+  const updateQuantity = useCallback(async (productId, quantity, size, category) => {
     try {
-      const userId = user?._id;
-      const updatedCart = await cartService.updateCartQuantity(
-        productId,
-        quantity,
-        size,
-        category,
-        userId
-      );
+      const updatedCart = await cartService.updateCartQuantity(productId, quantity, size, category, user?._id);
       setCart(updatedCart);
       return updatedCart;
     } catch (error) {
       console.error('Error updating cart:', error);
       throw error;
     }
-  };
+  }, [user?._id]);
 
-  const removeFromCart = async (productId, size, category) => {
+  const removeFromCart = useCallback(async (productId, size, category) => {
     try {
-      const userId = user?._id;
-      const updatedCart = await cartService.removeFromCart(
-        productId,
-        size,
-        category,
-        userId
-      );
+      const updatedCart = await cartService.removeFromCart(productId, size, category, user?._id);
       setCart(updatedCart);
       return updatedCart;
     } catch (error) {
       console.error('Error removing from cart:', error);
       throw error;
     }
-  };
+  }, [user?._id]);
 
-  const getTotalPrice = () => {
-    return cart?.totalPrice || 0;
-  };
+  const getTotalPrice = useCallback(() => cart?.totalPrice || 0, [cart?.totalPrice]);
 
-  const value = {
+  const value = useMemo(() => ({
     cart,
     loading,
     itemCount,
@@ -130,7 +93,7 @@ export const CartProvider = ({ children }) => {
     removeFromCart,
     fetchCart,
     getTotalPrice,
-  };
+  }), [cart, loading, itemCount, addToCart, updateQuantity, removeFromCart, fetchCart, getTotalPrice]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
