@@ -34,7 +34,7 @@ const Register = () => {
       await googleLogin(credentialResponse.credential);
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Google sign-up failed. Please try again.');
+      setError(err.response?.data?.message || err.message || 'Google sign-up failed. Please try again.');
     } finally {
       setLoading(false);
     }

@@ -16,8 +16,25 @@ const reviewRoutes=require("./routes/reviewRoutes")
 const app=express();
 const connectDB=require('./config/db')
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://e-commerce-spiceroute.vercel.app',
+];
 
-app.use(cors()); 
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (e.g. mobile apps, curl, Postman)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 app.use(express.json())
 
 const PORT=process.env.PORT||3000;

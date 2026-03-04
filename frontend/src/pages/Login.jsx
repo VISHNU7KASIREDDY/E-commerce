@@ -33,7 +33,7 @@ const Login = () => {
       await googleLogin(credentialResponse.credential);
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Google sign-in failed. Please try again.');
+      setError(err.response?.data?.message || err.message || 'Google sign-in failed. Please try again.');
     } finally {
       setLoading(false);
     }

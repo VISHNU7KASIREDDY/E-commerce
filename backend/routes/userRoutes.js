@@ -6,6 +6,9 @@ const {OAuth2Client}=require("google-auth-library")
 const {protect}=require("../middlewares/authMiddleware")
 const router=express.Router()
 
+if (!process.env.GOOGLE_CLIENT_ID) {
+  console.error('GOOGLE_CLIENT_ID is missing from environment variables. Google login will not work.');
+}
 const googleClient=new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
 
 router.post('/register',async (req,res)=>{
@@ -123,8 +126,12 @@ router.post("/google-login",async (req,res)=>{
       })
     })
   }catch(err){
-    console.error("Google login error:",err)
-    res.status(401).json({message:"Google authentication failed"})
+    if (err.message && (err.message.includes('Token') || err.message.includes('invalid') || err.message.includes('expired'))) {
+      console.error("Google token verification failed:", err.message)
+      return res.status(401).json({message:"Google token is invalid or expired. Please try again."})
+    }
+    console.error("Google login error:", err)
+    res.status(500).json({message:"Google authentication failed. Server error."})
   }
 })
 
