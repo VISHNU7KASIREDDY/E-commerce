@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { adminService } from '../../services/adminService';
+import { useAuth } from '../../context/AuthContext';
+
+const DEMO_EMAILS = ['demo_user@example.com', 'demo_admin@example.com'];
 
 const ProductManagement = () => {
+  const { user } = useAuth();
+  const isDemoUser = user && DEMO_EMAILS.includes(user.email);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -105,6 +110,10 @@ const ProductManagement = () => {
   };
 
   const handleDelete = async (id) => {
+    if (isDemoUser) {
+      alert('⚠️ Demo account cannot delete data');
+      return;
+    }
     if (!window.confirm('Are you sure you want to delete this product?')) return;
 
     try {
@@ -113,7 +122,7 @@ const ProductManagement = () => {
       fetchProducts();
     } catch (error) {
       console.error('Error deleting product:', error);
-      alert('Failed to delete product');
+      alert(error.response?.data?.message || 'Failed to delete product');
     }
   };
 

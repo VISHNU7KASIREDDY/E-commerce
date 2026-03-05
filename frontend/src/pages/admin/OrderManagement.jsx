@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
+
+const DEMO_EMAILS = ['demo_user@example.com', 'demo_admin@example.com'];
 
 const OrderManagement = () => {
+  const { user } = useAuth();
+  const isDemoUser = user && DEMO_EMAILS.includes(user.email);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
@@ -33,6 +38,10 @@ const OrderManagement = () => {
   };
 
   const deleteOrder = async (orderId, orderNumber) => {
+    if (isDemoUser) {
+      alert('⚠️ Demo account cannot delete data');
+      return;
+    }
     if (window.confirm(`Are you sure you want to delete order ${orderNumber || orderId}? This action cannot be undone.`)) {
       try {
         await api.delete(`/admin/orders/${orderId}`);
@@ -40,7 +49,7 @@ const OrderManagement = () => {
         fetchOrders(); 
       } catch (error) {
         console.error('Error deleting order:', error);
-        alert('Failed to delete order');
+        alert(error.response?.data?.message || 'Failed to delete order');
       }
     }
   };

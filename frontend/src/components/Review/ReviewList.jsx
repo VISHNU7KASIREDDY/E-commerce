@@ -2,11 +2,18 @@ import React, { useState } from 'react';
 import { reviewService } from '../../services/reviewService';
 import { useAuth } from '../../context/AuthContext';
 
+const DEMO_EMAILS = ['demo_user@example.com', 'demo_admin@example.com'];
+
 const ReviewList = ({ reviews, onReviewsUpdated }) => {
   const { user } = useAuth();
+  const isDemoUser = user && DEMO_EMAILS.includes(user.email);
   const [editingReview, setEditingReview] = useState(null);
 
   const handleDelete = async (reviewId) => {
+    if (isDemoUser) {
+      alert('⚠️ Demo account cannot delete data');
+      return;
+    }
     if (!window.confirm('Are you sure you want to delete this review?')) return;
 
     try {
@@ -14,7 +21,7 @@ const ReviewList = ({ reviews, onReviewsUpdated }) => {
       onReviewsUpdated?.();
     } catch (error) {
       console.error('Error deleting review:', error);
-      alert('Failed to delete review');
+      alert(error.response?.data?.message || 'Failed to delete review');
     }
   };
 

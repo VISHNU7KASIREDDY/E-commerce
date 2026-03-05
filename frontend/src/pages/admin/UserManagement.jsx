@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { adminService } from '../../services/adminService';
+import { useAuth } from '../../context/AuthContext';
+
+const DEMO_EMAILS = ['demo_user@example.com', 'demo_admin@example.com'];
 
 const UserManagement = () => {
+  const { user: currentUser } = useAuth();
+  const isDemoUser = currentUser && DEMO_EMAILS.includes(currentUser.email);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -67,6 +72,10 @@ const UserManagement = () => {
   };
 
   const handleDelete = async (id) => {
+    if (isDemoUser) {
+      alert('⚠️ Demo account cannot delete data');
+      return;
+    }
     if (!window.confirm('Are you sure you want to delete this user?')) return;
 
     try {
@@ -75,7 +84,7 @@ const UserManagement = () => {
       fetchUsers();
     } catch (error) {
       console.error('Error deleting user:', error);
-      alert('Failed to delete user');
+      alert(error.response?.data?.message || 'Failed to delete user');
     }
   };
 
