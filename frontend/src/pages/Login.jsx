@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [demoLoading, setDemoLoading] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -32,6 +33,23 @@ const Login = () => {
       setError(err.response?.data?.message || 'Failed to login. Please check your credentials.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDemoLogin = async (role) => {
+    setError('');
+    setDemoLoading(role);
+    const creds = role === 'admin'
+      ? { email: 'demo_admin@example.com', password: 'demo1234' }
+      : { email: 'demo_user@example.com', password: 'demo1234' };
+
+    try {
+      await login(creds.email, creds.password);
+      navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Demo login failed. Please try again.');
+    } finally {
+      setDemoLoading('');
     }
   };
 
@@ -114,6 +132,39 @@ const Login = () => {
           </svg>
           <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Sign in with Google</span>
         </a>
+
+        {/* Demo Login Section */}
+        <div className="mt-6">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="flex-1 h-px bg-neutral-300 dark:bg-neutral-600"></div>
+            <span className="text-sm text-neutral-500 dark:text-neutral-400">demo logins</span>
+            <div className="flex-1 h-px bg-neutral-300 dark:bg-neutral-600"></div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => handleDemoLogin('user')}
+              disabled={!!demoLoading}
+              className="flex items-center justify-center gap-2 border-2 border-emerald-400 dark:border-emerald-500 text-emerald-700 dark:text-emerald-300 rounded-lg py-2.5 px-3 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              👤 {demoLoading === 'user' ? 'Logging in...' : 'Demo User'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleDemoLogin('admin')}
+              disabled={!!demoLoading}
+              className="flex items-center justify-center gap-2 border-2 border-violet-400 dark:border-violet-500 text-violet-700 dark:text-violet-300 rounded-lg py-2.5 px-3 hover:bg-violet-50 dark:hover:bg-violet-900/20 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              🔧 {demoLoading === 'admin' ? 'Logging in...' : 'Demo Admin'}
+            </button>
+          </div>
+
+          <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center mt-2">
+            Demo accounts cannot delete data
+          </p>
+        </div>
 
         <div className="mt-6 text-center">
           <p className="text-neutral-600 dark:text-neutral-400 text-sm">

@@ -19,6 +19,7 @@ const reviewRoutes=require("./routes/reviewRoutes")
 const authRoutes=require("./routes/authRoutes")
 const app=express();
 const connectDB=require('./config/db')
+const User=require('./models/user')
 
 const allowedOrigins = [
   'http://localhost:5173',
@@ -56,7 +57,23 @@ app.use(express.json())
 
 const PORT=process.env.PORT||3000;
 
-connectDB()
+// Seed demo accounts on startup
+const seedDemoAccounts = async () => {
+  const demos = [
+    { name: 'Demo User', email: 'demo_user@example.com', password: 'demo1234', role: 'customer' },
+    { name: 'Demo Admin', email: 'demo_admin@example.com', password: 'demo1234', role: 'admin' },
+  ];
+
+  for (const demo of demos) {
+    const exists = await User.findOne({ email: demo.email });
+    if (!exists) {
+      await User.create(demo);
+      console.log(`Seeded demo account: ${demo.email}`);
+    }
+  }
+};
+
+connectDB().then(() => seedDemoAccounts().catch(err => console.error('Demo seed error:', err)))
 
 app.use("/api/auth",authRoutes);
 

@@ -1,6 +1,7 @@
 const express=require('express')
 const Order=require("../models/order")
 const {protect,admin}=require("../middlewares/authMiddleware")
+const demoProtect=require("../middlewares/demoProtect")
 
 const router=express.Router()
 
@@ -54,7 +55,7 @@ router.put("/:id",protect,admin,async (req,res)=>{
   }
 })
 
-router.delete("/:id",protect,admin,async(req,res)=>{
+router.delete("/:id",protect,admin,demoProtect,async(req,res)=>{
   try {
     const order=await Order.findById(req.params.id)
     if(order){

@@ -1,5 +1,6 @@
 const express = require('express');
 const { protect } = require('../middlewares/authMiddleware');
+const demoProtect = require('../middlewares/demoProtect');
 const Review = require('../models/review');
 const Product = require('../models/product');
 
@@ -94,7 +95,7 @@ router.put('/:id', protect, async (req, res) => {
   }
 });
 
-router.delete('/:id', protect, async (req, res) => {
+router.delete('/:id', protect, demoProtect, async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
 

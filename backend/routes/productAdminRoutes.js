@@ -1,5 +1,6 @@
 const express=require('express')
 const { protect, admin } = require("../middlewares/authMiddleware")
+const demoProtect=require("../middlewares/demoProtect")
 const Product=require("../models/product")
 
 const router=express.Router()
@@ -104,7 +105,7 @@ router.put('/:id',protect,admin,async (req,res)=>{
   }
 })
 
-router.delete('/:id',protect,admin,async (req,res)=>{
+router.delete('/:id',protect,admin,demoProtect,async (req,res)=>{
   try{
     const id=req.params.id
     const product=await Product.findById(id);
